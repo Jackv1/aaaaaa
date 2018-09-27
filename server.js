@@ -1,6 +1,8 @@
 const express = require("express");
 const hbs = require("hbs");
 const fs = require("fs");
+const port = process.env.PORT || 3000;
+console.log(process.env.PORT);
 
 var app = express();
 
@@ -12,11 +14,6 @@ app.use((req, res, next) => {
   var now = new Date().toString();
   var log = `${now}: ${req.method} ${req.url}`;
   console.log(log);
-  fs.appendFile("server.log", log, (err) => {
-    if (err) {
-      console.log("Unable to append to server.log");
-    }
-  });
   next();
 });
 
@@ -48,6 +45,6 @@ app.get("/error", (req, res) => {
 })
 
 
-app.listen(3000, () => {
-  console.log("Server running on localhost:3000");
+app.listen(port, () => {
+  console.log(`Server running on localhost:${port}`);
 });
